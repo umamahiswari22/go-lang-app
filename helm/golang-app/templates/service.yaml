@@ -4,6 +4,7 @@ metadata:
   name: {{ include "golang-app.fullname" . }}
   labels:
     {{- include "golang-app.labels" . | nindent 4 }}
+    app: golang
 spec:
   type: {{ .Values.service.type }}
   ports:

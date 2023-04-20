@@ -4,6 +4,7 @@ metadata:
   name: {{ include "golang-app.fullname" . }}
   labels:
     {{- include "golang-app.labels" . | nindent 4 }}
+    app: golang
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -11,6 +12,7 @@ spec:
   selector:
     matchLabels:
       {{- include "golang-app.selectorLabels" . | nindent 6 }}
+      app: golang
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,6 +21,7 @@ spec:
       {{- end }}
       labels:
         {{- include "golang-app.selectorLabels" . | nindent 8 }}
+        app: golang
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -37,14 +40,14 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -4,6 +4,7 @@ metadata:
   name: {{ include "redis-backend.fullname" . }}
   labels:
     {{- include "redis-backend.labels" . | nindent 4 }}
+    app: redis
 spec:
   type: {{ .Values.service.type }}
   ports:
