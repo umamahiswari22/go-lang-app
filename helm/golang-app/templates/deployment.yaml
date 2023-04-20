@@ -35,6 +35,15 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: Port
+              value: "8081"
+            - name: RedisHost
+              value: "redis-test11-redis-backend.default.svc.cluster.local"
+            - name: RedisPort
+              value: "6379"
+            - name: RedisDb
+              value: "0"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
