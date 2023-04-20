@@ -9,7 +9,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      nodePort: 30035
+      targetPort: 8081
       protocol: TCP
       name: http
   selector:
